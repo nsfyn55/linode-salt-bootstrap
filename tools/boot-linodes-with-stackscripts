@@ -1,0 +1,12 @@
+lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data '{"hostname":"testminion","minion_master":"45.79.153.13"}' --image linode/ubuntu18.04 --label testminion --root_pass Pineapple55
+
+
+for i in $(seq 7 $END) 
+do 
+    lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data "{\"hostname\":\"testminion$i\",\"minion_master\":\"<salt master ip>\"}" --image linode/ubuntu18.04 --label testminion$i --root_pass Pineapple55
+done
+
+for i in $(seq 5 $END) 
+do 
+    echo "\"testminion$i\""
+done
