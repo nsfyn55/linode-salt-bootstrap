@@ -1,12 +1,33 @@
 lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data '{"hostname":"testminion","minion_master":"45.79.153.13"}' --image linode/ubuntu18.04 --label testminion --root_pass Pineapple55
 
 
+# create all the linodes
 for i in $(seq 7 $END) 
 do 
     lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data "{\"hostname\":\"testminion$i\",\"minion_master\":\"<salt master ip>\"}" --image linode/ubuntu18.04 --label testminion$i --root_pass Pineapple55
 done
 
+
+# test print
 for i in $(seq 5 $END) 
 do 
     echo "\"testminion$i\""
 done
+
+# delete all the linodes
+declare -a arr=("8679875" "8679877" "8679879" "8679881" "8679882" "8679883")
+
+for i in "${arr[@]}"
+do
+   lc linodes delete $i
+done
+
+# cut output just to id list
+lc linodes list | sed '1d;$d' | tail -n +4 | cut -c 9-14
+
+# wrap all lines in quotes
+%s/^\(.*\)$/"\1"/
+
+# turn all lines into list
+:%j
+
