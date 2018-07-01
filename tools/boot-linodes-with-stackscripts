@@ -4,7 +4,7 @@ lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --
 # create all the linodes
 for i in $(seq 7 $END) 
 do 
-    lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data "{\"hostname\":\"testminion$i\",\"minion_master\":\"<salt master ip>\"}" --image linode/ubuntu18.04 --label testminion$i --root_pass Pineapple55
+    lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data "{\"hostname\":\"testminion$i\",\"minion_master\":\"<salt master ip>\"}" --image linode/ubuntu19.04 --label testminion$i --root_pass Pineapple55
 done
 
 
@@ -15,7 +15,7 @@ do
 done
 
 # delete all the linodes
-declare -a arr=("8679875" "8679877" "8679879" "8679881" "8679882" "8679883")
+declare -a arr=("XXXXXXX")
 
 for i in "${arr[@]}"
 do
