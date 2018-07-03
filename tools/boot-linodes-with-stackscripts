@@ -1,33 +1,5 @@
-lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data '{"hostname":"testminion","minion_master":"45.79.153.13"}' --image linode/ubuntu18.04 --label testminion --root_pass Pineapple55
-
-
 # create all the linodes
-for i in $(seq 7 $END) 
-do 
-    lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data "{\"hostname\":\"testminion$i\",\"minion_master\":\"<salt master ip>\"}" --image linode/ubuntu19.04 --label testminion$i --root_pass Pineapple55
-done
-
-
-# test print
 for i in $(seq 5 $END) 
 do 
-    echo "\"testminion$i\""
+    lc linodes create --type g6-nanode-1 --region us-east --stackscript_id 323926 --stackscript_data "{\"hostname\":\"testminion$i\",\"minion_master\":\"<salt-master-ip>",\"admin_username\":\"artcarey\",\"admin_password\":\"pineapple\",\"admin_public_key\":\"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeYG7qvIn6Ltl15m2/at+3JhHIFxpLjAY0gr1GdNL9XGxwDxG2L4WxihAcEy4FaNMJLoWgtmRsXB6T2Y0uGqcrZUP33DYwRsyT224tHJKyPjUD629bXhnzefWSI4ygICkHShxjeAixo0VjTqlSw884sbGIySiO1TyyZ5GC5Y0EFrURf1ukxZguu74vBnXim7wqRjuAjq37XOnhtvB6EssTqqC46KySOdPyTUcmwtIV2Cl7jrVXP/bvAfIf6F7fxAvYeUKgZ0GwY9jx7ImP3Rid8LOTnYy91T5YXgA/FU42nif3R0F/RgVbPnKtXAlbquwzHTIM1zmWywyhy2GrSBZT\"}" --image linode/ubuntu18.04 --label testminion$i --root_pass Pineapple55
 done
-
-# delete all the linodes
-declare -a arr=("XXXXXXX")
-
-for i in "${arr[@]}"
-do
-   lc linodes delete $i
-done
-
-# cut output just to id list
-lc linodes list | sed '1d;$d' | tail -n +4 | cut -c 9-14
-
-# wrap all lines in quotes
-%s/^\(.*\)$/"\1"/
-
-# turn all lines into list
-:%j
-
